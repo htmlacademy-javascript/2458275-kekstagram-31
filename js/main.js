@@ -11,6 +11,7 @@ const AVATAR_NUM = {
   min: 1,
   max: 6,
 };
+
 const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -19,9 +20,11 @@ const COMMENTS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+
 const NAMES = [
   'Иван', 'Екатерина', 'Александр', 'Ольга', 'Дмитрий', 'Анна', 'Николай', 'Мария', 'Павел', 'Светлана', 'Алексей', 'Татьяна', 'Игорь', 'Антонина', 'Владимир', 'Елена', 'Артем', 'Наталья', 'Сергей', 'Ирина', 'Андрей', 'Евгения', 'Михаил', 'Анна', 'Владислав', 'Ольга', 'Александра', 'Денис', 'Елена', 'Анатолий',
 ];
+
 const DESCRIPTIONS = [
   'Вдохновляйтесь каждым моментом.',
   'Мир в объективе камеры.',
@@ -48,33 +51,40 @@ const DESCRIPTIONS = [
   'Остановите время...',
   'Краски жизни.',
 ];
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
+
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-const usedIdValues = [];
-const getRandomCommentId = () => {
-  let commentId = 1;
-  if(usedIdValues.includes(commentId)) {
-    commentId = getRandomInteger(1, 1000000);
-  }
-  usedIdValues.push(commentId);
-  return commentId;
-};
-const createComment = () => {
-  let id = 1;
-  return () => {
-    const comment = {};
-    comment.id = getRandomCommentId();
-    comment.avatar = `img/avatar-${getRandomInteger(AVATAR_NUM.min, AVATAR_NUM.max)}.svg`;
-    comment.message = getRandomArrayElement(COMMENTS);
-    comment.name = getRandomArrayElement(NAMES);
-    return comment;
+
+const getUniqueRandomInteger = (min, max) => {
+  const usedValues = [];
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (usedValues.length >= max - min + 1) {
+      return null;
+    }
+    while (usedValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    usedValues.push(currentValue);
+    return currentValue;
   };
 };
+
+const createComment = () => () => {
+  const comment = {};
+  comment.id = getUniqueRandomInteger(1, COMMENTS_NUM.max * PHOTOS_TOTAL);
+  comment.avatar = `img/avatar-${getRandomInteger(AVATAR_NUM.min, AVATAR_NUM.max)}.svg`;
+  comment.message = getRandomArrayElement(COMMENTS);
+  comment.name = getRandomArrayElement(NAMES);
+  return comment;
+};
+
 const createPhoto = () => {
   let id = 1;
   return () => {
@@ -88,6 +98,8 @@ const createPhoto = () => {
     return photo;
   };
 };
+
 const photosArray = Array.from({length: PHOTOS_TOTAL}, createPhoto());
+
 console.log(photosArray);
 
