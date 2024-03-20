@@ -41,6 +41,6 @@ const createPhoto = () => {
   };
 };
 
-const photosArray = () => Array.from({length: PHOTOS_TOTAL}, createPhoto());
+const createPhotos = () => Array.from({length: PHOTOS_TOTAL}, createPhoto);
 
-export {photosArray};
+export {createPhotos};

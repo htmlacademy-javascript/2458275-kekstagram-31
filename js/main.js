@@ -1,4 +1,3 @@
-import {photosArray} from './create-photos.js';
 
-photosArray();
-
+import {picturesElement} from './thumbnails.js';
+console.log (picturesElement);
