@@ -1,5 +1,4 @@
-import {photosArray} from './createItems';
+import {photosArray} from './create-photos.js';
 
-console.log(photosArray);
-
+photosArray();
 

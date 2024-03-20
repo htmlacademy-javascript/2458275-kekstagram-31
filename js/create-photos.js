@@ -1,5 +1,5 @@
 import {getRandomInteger, getUniqueRandomInteger, getRandomArrayElement} from './utils.js';
-import {COMMENTS, NAMES, DESCRIPTIONS} from './mockData.js';
+import {COMMENTS, NAMES, DESCRIPTIONS} from './mock-data.js';
 
 const PHOTOS_TOTAL = 25;
 
@@ -16,9 +16,11 @@ const AVATAR_NUM = {
   max: 6,
 };
 
-const createComment = () => () => {
+const commentIdGenerator = getUniqueRandomInteger(1, COMMENTS_NUM.max * PHOTOS_TOTAL);
+
+const createComment = () => {
   const comment = {};
-  comment.id = getUniqueRandomInteger(1, COMMENTS_NUM.max * PHOTOS_TOTAL);
+  comment.id = commentIdGenerator();
   comment.avatar = `img/avatar-${getRandomInteger(AVATAR_NUM.min, AVATAR_NUM.max)}.svg`;
   comment.message = getRandomArrayElement(COMMENTS);
   comment.name = getRandomArrayElement(NAMES);
@@ -33,12 +35,12 @@ const createPhoto = () => {
     photo.url = `photos/${id}.jpg`;
     photo.description = getRandomArrayElement(DESCRIPTIONS);
     photo.likes = getRandomInteger(LIKES_NUM.min, LIKES_NUM.max);
-    photo.comments = Array.from({length: getRandomInteger(0, COMMENTS_NUM.max)}, createComment());
+    photo.comments = Array.from({length: getRandomInteger(0, COMMENTS_NUM.max)}, createComment);
     id++;
     return photo;
   };
 };
 
-const photosArray = Array.from({length: PHOTOS_TOTAL}, createPhoto());
+const photosArray = () => Array.from({length: PHOTOS_TOTAL}, createPhoto());
 
 export {photosArray};
