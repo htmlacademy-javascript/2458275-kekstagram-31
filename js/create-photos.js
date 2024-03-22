@@ -27,7 +27,7 @@ const createComment = () => {
   return comment;
 };
 
-const createPhoto = () => {
+const getPhotoGenerator = () => {
   let id = 1;
   return () => {
     const photo = {};
@@ -40,7 +40,7 @@ const createPhoto = () => {
     return photo;
   };
 };
-
-const createPhotos = () => Array.from({length: PHOTOS_TOTAL}, createPhoto);
+const generatedPhoto = getPhotoGenerator();
+const createPhotos = () => Array.from({length: PHOTOS_TOTAL}, generatedPhoto);
 
 export {createPhotos};
