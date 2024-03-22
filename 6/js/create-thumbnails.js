@@ -3,8 +3,6 @@ import {createPhotos} from './create-photos.js';
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
 
-const userPictures = createPhotos();
-
 const createPictureThumbnail = (picture) => {
   const pictureThumbnail = pictureTemplate.cloneNode(true);
 
@@ -18,6 +16,8 @@ const createPictureThumbnail = (picture) => {
 
   return pictureThumbnail;
 };
+
+const userPictures = createPhotos();
 
 const picturesFragment = document.createDocumentFragment();
 
