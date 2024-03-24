@@ -1,7 +1,7 @@
-
 import {createThumbnails} from './create-thumbnails.js';
-import {createPhotos} from './create-photos.js';
+import {createPhotosArray} from './create-photos-array.js';
+import {openBigPicture} from './gallery.js';
 
-const pictures = createPhotos();
-createThumbnails(pictures);
-
+const photosArray = createPhotosArray();
+createThumbnails(photosArray);
+openBigPicture();
