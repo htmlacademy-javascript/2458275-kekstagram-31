@@ -1,7 +1,10 @@
 import {createThumbnails} from './create-thumbnails.js';
 import {createPhotosArray} from './create-photos-array.js';
-import {openBigPicture} from './gallery.js';
+import {createBigPicture} from './create-fullsize-photos.js';
 
 const photosArray = createPhotosArray();
+
 createThumbnails(photosArray);
-openBigPicture();
+createBigPicture(photosArray);
+
+
