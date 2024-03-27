@@ -14,12 +14,12 @@ const onEscKeydown = (evt) => {
   }
 };
 
-const closeBigPicture = function () {
+function closeBigPicture() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   commentsContainer.innerHTML = '';
   document.removeEventListener('keydown', onEscKeydown);
-};
+}
 
 const openBigPicture = () => {
 
@@ -54,9 +54,8 @@ const createBigPicture = (array) => {
       commentsFragment.append(commentSample);
     });
     commentsContainer.append(commentsFragment);
+    openBigPicture();
   });
-
-  openBigPicture();
 };
 
 bigPictureClosingElement.addEventListener('click', () => {

@@ -26,4 +26,4 @@ const createThumbnails = () => {
   picturesContainer.append(picturesFragment);
 };
 
-export {picturesContainer, createThumbnails};
+export {picturesContainer, createThumbnails,userPictures};
