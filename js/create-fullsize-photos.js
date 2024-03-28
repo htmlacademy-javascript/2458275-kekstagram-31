@@ -20,7 +20,7 @@ const onPictureClosingClick = () => {
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  removeComments();
+  commentsContainer.innerHTML = '';
   document.removeEventListener('keydown', onEscKeydown);
   document.removeEventListener('click', onPictureClosingClick);
 }
