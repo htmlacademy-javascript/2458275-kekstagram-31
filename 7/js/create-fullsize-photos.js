@@ -1,6 +1,5 @@
 import {isEscapeKey} from './utils.js';
 import {picturesContainer} from './create-thumbnails.js';
-
 const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClosingElement = bigPicture.querySelector('.big-picture__cancel');
@@ -14,15 +13,19 @@ const onEscKeydown = (evt) => {
   }
 };
 
+const onPictureClosingClick = () => {
+  closeBigPicture();
+};
+
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   commentsContainer.innerHTML = '';
   document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('click', onPictureClosingClick);
 }
 
 const openBigPicture = () => {
-
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
 
@@ -30,6 +33,7 @@ const openBigPicture = () => {
   bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
   document.addEventListener('keydown', onEscKeydown);
+  bigPictureClosingElement.addEventListener('click', onPictureClosingClick);
 };
 
 const createBigPicture = (array) => {
@@ -57,10 +61,7 @@ const createBigPicture = (array) => {
     openBigPicture();
   });
 };
-
 bigPictureClosingElement.addEventListener('click', () => {
   closeBigPicture();
 });
-
-
 export {createBigPicture};
