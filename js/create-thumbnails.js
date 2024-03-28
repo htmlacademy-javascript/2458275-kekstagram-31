@@ -1,34 +1,29 @@
-import {createPhotos} from './create-photos.js';
+import {createPhotosArray} from './create-photos-array.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
 
-const createPictureThumbnail = (picture) => {
+const createPictureThumbnail = ({id, url, description, likes, comments}) => {
   const pictureThumbnail = pictureTemplate.cloneNode(true);
-
   const image = pictureThumbnail.querySelector('.picture__img');
 
-  image.src = picture.url;
-  image.alt = picture.description;
-
-  pictureThumbnail.querySelector('.picture__likes').textContent = picture.likes;
-  pictureThumbnail.querySelector('.picture__comments').textContent = picture.comments.length;
+  image.src = url;
+  image.alt = description;
+  pictureThumbnail.dataset.pictureId = id;
+  pictureThumbnail.querySelector('.picture__likes').textContent = likes;
+  pictureThumbnail.querySelector('.picture__comments').textContent = comments.length;
 
   return pictureThumbnail;
 };
 
-const userPictures = createPhotos();
-
+const userPictures = createPhotosArray();
 const picturesFragment = document.createDocumentFragment();
 
 const createThumbnails = () => {
-
-  userPictures.forEach((picture) => {
-
-    picturesFragment.append(createPictureThumbnail(picture));
+  userPictures.forEach(({id, url, description, likes, comments}) => {
+    picturesFragment.append(createPictureThumbnail({id, url, description, likes, comments}));
   });
-
   picturesContainer.append(picturesFragment);
 };
 
-export {createThumbnails};
+export {picturesContainer, createThumbnails,userPictures};
