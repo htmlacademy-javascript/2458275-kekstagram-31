@@ -1,7 +1,10 @@
 import {getRandomInteger, getUniqueRandomInteger, getRandomArrayElement} from './utils.js';
 import {COMMENTS, NAMES, DESCRIPTIONS} from './mock-data.js';
 
-const PHOTOS_TOTAL = 25;
+const PHOTOS_NUM = {
+  min: 1,
+  max: 25,
+};
 
 const LIKES_NUM = {
   min: 15,
@@ -16,8 +19,7 @@ const AVATAR_NUM = {
   max: 6,
 };
 
-const commentIdGenerator = getUniqueRandomInteger(1, COMMENTS_NUM.max * PHOTOS_TOTAL);
-
+const commentIdGenerator = getUniqueRandomInteger(1, COMMENTS_NUM.max * PHOTOS_NUM.max);
 const createComment = () => {
   const comment = {};
   comment.id = commentIdGenerator();
@@ -41,6 +43,6 @@ const getPhotoGenerator = () => {
   };
 };
 const generatedPhoto = getPhotoGenerator();
-const createPhotos = () => Array.from({length: PHOTOS_TOTAL}, generatedPhoto);
+const createPhotosArray = () => Array.from({length: PHOTOS_NUM.max}, generatedPhoto);
 
-export {createPhotos};
+export {createPhotosArray};

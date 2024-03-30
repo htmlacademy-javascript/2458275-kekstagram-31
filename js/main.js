@@ -1,7 +1,7 @@
+import {createThumbnails, userPictures} from './create-thumbnails.js';
+import {onThumbnailClick} from './open-fullsize-photos.js';
 
-import {createThumbnails} from './create-thumbnails.js';
-import {createPhotos} from './create-photos.js';
+createThumbnails(userPictures);
+onThumbnailClick(userPictures);
 
-const pictures = createPhotos();
-createThumbnails(pictures);
 
