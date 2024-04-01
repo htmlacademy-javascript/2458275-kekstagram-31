@@ -13,9 +13,7 @@ const onEscKeydown = (evt) => {
   }
 };
 
-const onPictureClosingClick = () => {
-  closeBigPicture();
-};
+const onPictureClosingClick = () => closeBigPicture();
 
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
@@ -47,6 +45,8 @@ const onThumbnailClick = (array) => (evt) => {
   showComments(currentPicture.comments);
   openBigPicture();
 };
-picturesContainer.addEventListener ('click', onThumbnailClick(userPictures));
+const showBigPictureInfo = () => {
+  picturesContainer.addEventListener ('click', onThumbnailClick(userPictures));
+};
 
-export {onThumbnailClick};
+export {showBigPictureInfo, body};
