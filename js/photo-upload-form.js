@@ -10,7 +10,6 @@ const uploadFormClosingElement = uploadForm.querySelector('.img-upload__cancel')
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const descriptionField = uploadForm.querySelector('.text__description');
 
-
 const onEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault ();
@@ -45,14 +44,12 @@ const openUploadForm = () => {
   photoUploadControl.addEventListener('change', onUploadFormClick);
 };
 
-openUploadForm();
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
 });
-
 
 pristine.addValidator(descriptionField, isDescriptionValid, `Длина комментария не должна превышать ${MAX_DESCRIPTION_LENGTH } симоволов`,);
 pristine.addValidator(hashtagsField, isHashtagValid, generateErrorMessage);
@@ -65,4 +62,6 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-export {openUploadForm, uploadForm, hashtagsField, descriptionField};
+openUploadForm();
+
+export {openUploadForm, hashtagsField, descriptionField};

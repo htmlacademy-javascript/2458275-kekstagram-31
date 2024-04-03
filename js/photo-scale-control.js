@@ -24,4 +24,3 @@ const onZoomInBtnClick = () => {
 zoomInBtn.addEventListener('click', onZoomInBtnClick);
 zoomOutBtn.addEventListener('click', onZoomOutBtnClick);
 
-export {previewImage};
