@@ -1,5 +1,6 @@
 import {body} from './open-fullsize-photos.js';
 import {isEscapeKey} from './utils.js';
+import {isDescriptionValid, MAX_DESCRIPTION_LENGTH, isHashtagValid, generateErrorMessage} from './form-validation.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 
@@ -11,9 +12,13 @@ const descriptionField = uploadForm.querySelector('.text__description');
 
 
 const onEscKeydown = (evt) => {
-  evt.preventDefault();
   if (isEscapeKey(evt)) {
-    closePhotoEditor();
+    evt.preventDefault ();
+    if (document.activeElement === hashtagsField || document.activeElement === descriptionField) {
+      evt.stopPropagation();
+    } else {
+      closePhotoEditor();
+    }
   }
 };
 
@@ -32,7 +37,6 @@ function closePhotoEditor () {
 const onUploadFormClick = () => {
   photoEditorForm.classList.remove('hidden');
   body.classList.add('modal-open');
-
   uploadFormClosingElement.addEventListener('click', onUploadFormClosingClick);
   document.addEventListener('keydown', onEscKeydown);
 };
@@ -40,5 +44,25 @@ const onUploadFormClick = () => {
 const openUploadForm = () => {
   photoUploadControl.addEventListener('change', onUploadFormClick);
 };
+
+openUploadForm();
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+});
+
+
+pristine.addValidator(descriptionField, isDescriptionValid, `Длина комментария не должна превышать ${MAX_DESCRIPTION_LENGTH } симоволов`,);
+pristine.addValidator(hashtagsField, isHashtagValid, generateErrorMessage);
+
+uploadForm.addEventListener('submit', (evt) => {
+  const isValid = pristine.validate();
+
+  if (!isValid) {
+    evt.preventDefault();
+  }
+});
 
 export {openUploadForm, uploadForm, hashtagsField, descriptionField};
