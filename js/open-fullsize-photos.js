@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utils.js';
-import {picturesContainer, userPictures} from './create-thumbnails.js';
+import {picturesContainer} from './create-thumbnails.js';
 import {removeComments, showComments} from './show-comments.js';
 
 const body = document.body;
@@ -13,9 +13,7 @@ const onEscKeydown = (evt) => {
   }
 };
 
-const onPictureClosingClick = () => {
-  closeBigPicture();
-};
+const onPictureClosingClick = () => closeBigPicture();
 
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
@@ -35,6 +33,10 @@ const openBigPicture = () => {
 
 const onThumbnailClick = (array) => (evt) => {
   const currentPictureThumbnail = evt.target.closest('.picture');
+
+  if (evt.target.className !== 'picture__img') {
+    return;
+  }
   const pictureId = currentPictureThumbnail.dataset.pictureId;
   const currentPicture = array.find((item) => item.id === Number(pictureId));
 
@@ -46,7 +48,11 @@ const onThumbnailClick = (array) => (evt) => {
 
   showComments(currentPicture.comments);
   openBigPicture();
-};
-picturesContainer.addEventListener ('click', onThumbnailClick(userPictures));
 
-export {onThumbnailClick};
+};
+
+const showBigPictureInfo = (array) => {
+  picturesContainer.addEventListener ('click', onThumbnailClick(array));
+};
+
+export {showBigPictureInfo, body};
