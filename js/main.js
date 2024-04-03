@@ -1,7 +1,8 @@
 import {createThumbnails, userPictures} from './create-thumbnails.js';
-import {onThumbnailClick} from './open-fullsize-photos.js';
+import {showBigPictureInfo} from './open-fullsize-photos.js';
+import './photo-upload-form.js';
+
 
 createThumbnails(userPictures);
-onThumbnailClick(userPictures);
-
+showBigPictureInfo(userPictures);
 
