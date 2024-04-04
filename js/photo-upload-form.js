@@ -1,6 +1,8 @@
 import {body} from './open-fullsize-photos.js';
 import {isEscapeKey} from './utils.js';
 import {isDescriptionValid, MAX_DESCRIPTION_LENGTH, isHashtagValid, generateErrorMessage} from './form-validation.js';
+import {clearEffectPreview} from './effects-slider.js';
+import {clearScaleControl} from './photo-scale-control.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 
@@ -26,11 +28,17 @@ const onUploadFormClosingClick = () => closePhotoEditor();
 function closePhotoEditor () {
   photoEditorForm.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeydown);
-  uploadFormClosingElement.removeEventListener('click', onUploadFormClosingClick);
+
   photoUploadControl.value = '';
   hashtagsField.value = '';
   descriptionField.value = '';
+
+  uploadForm.reset();
+  clearEffectPreview();
+  clearScaleControl();
+
+  document.removeEventListener('keydown', onEscKeydown);
+  uploadFormClosingElement.removeEventListener('click', onUploadFormClosingClick);
 }
 
 const onUploadFormClick = () => {
